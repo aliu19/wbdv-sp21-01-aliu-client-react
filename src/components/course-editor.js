@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CourseEditor = () => {
+const CourseEditor = ({courses}) => {
   return(
       <h1>Course Editor</h1>
   )
