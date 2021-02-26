@@ -16,7 +16,7 @@ export default class CourseManager extends React.Component {
 
   addCourse = () => { // { = body of function
     const newCourse = {
-      title: "New Course",
+      title: document.getElementById("newTitleFld").value,
       owner: "me",
       lastModified: "2/20/2021"
     }
@@ -26,6 +26,7 @@ export default class CourseManager extends React.Component {
             ...prevState,
             courses: [...prevState.courses, course] // appends new course at end
           })))
+    document.getElementById("newTitleFld").value = ''
   }
 
   deleteCourse = (courseToDelete) => {
@@ -62,11 +63,11 @@ export default class CourseManager extends React.Component {
               <div className="col-8 d-block">
                 <input type="text"
                        className="form-control"
-                       id="titleFld"
+                       id="newTitleFld"
                        placeholder="New Course Title"/>
               </div>
               <div className="col-1 d-block">
-                <i onClick={() => this.addCourse()} className="fa fa-plus-circle fa-2x"></i>
+                <i onClick={this.addCourse} className="fa fa-plus-circle fa-2x"></i>
               </div>
             </div>
           </div>
@@ -87,7 +88,7 @@ export default class CourseManager extends React.Component {
           </Route>
 
           <button className="btn wbdv-bottom-right" id="addBtn">
-            <i onClick={() => this.addCourse()} className="fa fa-plus-circle fa-4x"></i>
+            <i onClick={this.addCourse} className="fa fa-plus-circle fa-4x"></i>
           </button>
         </div>
     );

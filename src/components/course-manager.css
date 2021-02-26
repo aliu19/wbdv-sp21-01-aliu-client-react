@@ -21,3 +21,43 @@
   top: 15px;
   right: 15px;
 }
+
+.wbdv-navbar-pad {
+  padding-left: 10px;
+  padding-right:20px;
+}
+
+.wbdv-modules {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: grey;
+  color: white;
+}
+
+.wbdv-navbar-font {
+  font-weight: bold;
+}
+
+.wbdv-topics {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  background-color: darkgray;
+}
+
+.wbdv-edit-padding {
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+wbdv-outline {
+  padding-left: 15px;
+  border: 2px solid black;
+}
+
+.wbdv-justify-navbar {
+  flex: 1;
+  margin: auto !important;
+  display: flex;
+  justify-content: space-evenly;
+}
