@@ -1,15 +1,51 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {Link} from "react-router-dom";
 
-const CourseRow = ({course, deleteCourse}) =>
-  <tr>
-    <td>{course.title}</td>
-    <td>{course.owner}</td>
-    <td>{course.lastModified}</td>
-    <td>
-      <i className="fas fa-trash" onClick={() => deleteCourse(course)}></i>
-      <i className="fas fa-edit"></i>
-      <i className="fas fa-check"></i>
-    </td>
-  </tr>
+const CourseRow = (
+    {
+      course,
+      deleteCourse,
+      updateCourse
+    }) => {
+
+  const [editing, setEditing] = useState(false) // react hooks
+  const [newTitle, setNewTitle] = useState(course.title)
+
+  const saveTitle = () => {
+    setEditing(false)
+    const newCourse = {
+      ...course,
+      title: newTitle
+    }
+    updateCourse(newCourse)
+  }
+
+  return ( // ( indicates explicit return
+      <tr>
+        <td>
+          {
+            !editing &&
+            <Link to="/editor">
+              {course.title}
+            </Link>
+          }
+          {editing &&
+          <input
+              onChange={(event) => setNewTitle(event.target.value)}
+              value={newTitle}
+              className="form-control"
+          />
+          }
+        </td>
+        <td>{course.owner}</td>
+        <td>{course.lastModified}</td>
+        <td>
+          {!editing && <i onClick={() => setEditing(true)} className="fas fa-edit"></i>}
+          {editing && <i onClick={() => saveTitle()} className="fas fa-check"></i>}
+          {editing && <i onClick={() => deleteCourse(course)} className="fas fa-times"></i>}
+        </td>
+      </tr>
+  )
+}
 
 export default CourseRow

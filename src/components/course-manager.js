@@ -1,32 +1,50 @@
 import React from 'react';
 import CourseTable from "./course-table";
 import CourseGrid from "./course-grid";
+import {Route} from "react-router-dom";
+import courseService from "../services/course-service"; // to differentiate b/w same function names
 
 export default class CourseManager extends React.Component {
   state = {
-    courses: [
-      {title: "CS5610", owner: "me", lastModified: "1/1/2021"},
-      {title: "CS3200", owner: "you", lastModified: "1/12/2021"},
-      {title: "CS5200", owner: "she", lastModified: "1/11/2021"},
-      {title: "CS1234", owner: "us", lastModified: "1/16/2021"}
-    ]
+    courses: []
   }
 
-  addCourse = () => {
+  componentDidMount = () =>
+    courseService.findAllCourses()
+      .then(courses => this.setState({courses}))
+
+  addCourse = () => { // { = body of function
     const newCourse = {
       title: "New Course",
       owner: "me",
       lastModified: "2/20/2021"
     }
-    this.state.courses.push(newCourse)
-    this.setState(this.state)
+    courseService.createCourse(newCourse)
+      .then(course =>
+          this.setState(prevState => ({ // ({ = JSON object
+            ...prevState,
+            courses: [...prevState.courses, course] // appends new course at end
+          })))
   }
 
   deleteCourse = (courseToDelete) => {
-    const newCourses = this.state.courses.filter(course => course !== courseToDelete)
-    this.setState({
-      courses: newCourses
-    })
+    courseService.deleteCourse(courseToDelete._id)
+      .then(status => {
+        this.setState((prevState) => ({ // 3 diff ways to do this in notes
+          ...prevState, // copies all prev attributes if more than 1 unchanged with a changed attr
+          courses: prevState.courses.filter(course => course !== courseToDelete)
+        }))
+      })
+  }
+
+  updateCourse = (course) => {
+    courseService.updateCourse(course._id, course)
+        .then(status => {
+          this.setState(prevState => ({
+            ...prevState,
+            courses: prevState.courses.map(c => c._id === course._id ? course : c) // if else terse
+          }))
+        })
   }
 
   render() {
@@ -34,8 +52,20 @@ export default class CourseManager extends React.Component {
         <div>
           <h1>Course Manager</h1>
           <button onClick={this.addCourse}>Add Course</button>
-          <CourseTable deleteCourse={this.deleteCourse} courses={this.state.courses}/>
-          <CourseGrid deleteCourse={this.deleteCourse} courses={this.state.courses}/>
+          <Route path="/courses/table">
+            <CourseTable
+                deleteCourse={this.deleteCourse}
+                updateCourse={this.updateCourse}
+                courses={this.state.courses}
+            />
+          </Route>
+          <Route path="/courses/grid">
+            <CourseGrid
+                deleteCourse={this.deleteCourse}
+                updateCourse={this.updateCourse}
+                courses={this.state.courses}
+            />
+          </Route>
         </div>
     );
   }
