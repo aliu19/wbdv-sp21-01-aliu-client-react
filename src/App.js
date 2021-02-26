@@ -10,11 +10,6 @@ function App() {
       <Route path="/courses" component={CourseManager}/>
       <Route path="/editor" render={(props) => <CourseEditor {...props}/>}/>
       {/*passes down children of props - spreader operator*/}
-      
-      {/*<div className="container-fluid">*/}
-      {/*  <CourseManager/>*/}
-      {/*  <CourseEditor/>*/}
-      {/*</div>*/}
     </BrowserRouter>
   );
 }

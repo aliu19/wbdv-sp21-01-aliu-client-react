@@ -37,12 +37,12 @@ const CourseRow = (
           />
           }
         </td>
-        <td>{course.owner}</td>
-        <td>{course.lastModified}</td>
+        <td className="d-none d-md-table-cell">{course.owner}</td>
+        <td className="d-none d-lg-table-cell">{course.lastModified}</td>
         <td>
-          {!editing && <i onClick={() => setEditing(true)} className="fas fa-edit"></i>}
-          {editing && <i onClick={() => saveTitle()} className="fas fa-check"></i>}
-          {editing && <i onClick={() => deleteCourse(course)} className="fas fa-times"></i>}
+          {!editing && <i onClick={() => setEditing(true)} className="fas fa-edit fa-2x"></i>}
+          {editing && <i onClick={() => saveTitle()} className="fas fa-check fa-2x"></i>}
+          {editing && <i onClick={() => deleteCourse(course)} className="fas fa-times fa-2x"></i>}
         </td>
       </tr>
   )

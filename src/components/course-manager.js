@@ -3,6 +3,7 @@ import CourseTable from "./course-table";
 import CourseGrid from "./course-grid";
 import {Route} from "react-router-dom";
 import courseService from "../services/course-service"; // to differentiate b/w same function names
+import "./course-manager.css"
 
 export default class CourseManager extends React.Component {
   state = {
@@ -15,7 +16,7 @@ export default class CourseManager extends React.Component {
 
   addCourse = () => { // { = body of function
     const newCourse = {
-      title: "New Course",
+      title: title,
       owner: "me",
       lastModified: "2/20/2021"
     }
@@ -50,8 +51,26 @@ export default class CourseManager extends React.Component {
   render() {
     return(
         <div>
-          <h1>Course Manager</h1>
-          <button onClick={this.addCourse}>Add Course</button>
+          <div className="wbdv-sticky-navbar">
+            <div className="row">
+              <div className="col-1 d-block">
+                <i className="fa fa-bars fa-2x"></i>
+              </div>
+              <div className="col-2">
+                <h4 className="d-none d-md-block">Course Manager</h4>
+              </div>
+              <div className="col-8 d-block">
+                <input type="text"
+                       className="form-control"
+                       id="titleFld"
+                       placeholder="New Course Title"/>
+              </div>
+              <div className="col-1 d-block">
+                <i onClick={() => this.addCourse()} className="fa fa-plus-circle fa-2x"></i>
+              </div>
+            </div>
+          </div>
+
           <Route path="/courses/table">
             <CourseTable
                 deleteCourse={this.deleteCourse}
@@ -66,6 +85,10 @@ export default class CourseManager extends React.Component {
                 courses={this.state.courses}
             />
           </Route>
+
+          <button className="btn wbdv-bottom-right" id="addBtn">
+            <i onClick={() => this.addCourse()} className="fa fa-plus-circle fa-4x"></i>
+          </button>
         </div>
     );
   }
