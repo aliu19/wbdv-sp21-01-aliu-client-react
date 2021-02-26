@@ -16,7 +16,7 @@ export default class CourseManager extends React.Component {
 
   addCourse = () => { // { = body of function
     const newCourse = {
-      title: title,
+      title: "New Course",
       owner: "me",
       lastModified: "2/20/2021"
     }
