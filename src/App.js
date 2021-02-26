@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import CourseManager from "./components/course-manager";
-import CourseEditor from "./components/course-editor";
+import CourseManager from "./components/course-manager/course-manager";
+import CourseEditor from "./components/course-editor/course-editor";
 import {BrowserRouter, Route} from "react-router-dom";
 
 function App() {
