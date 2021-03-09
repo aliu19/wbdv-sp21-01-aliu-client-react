@@ -40,10 +40,10 @@ export default class CourseTable extends React.Component {
             </thead>
 
             {
-              this.props.courses.map((course, idx) =>
+              this.props.courses.map((course) =>
                   <CourseRow
                       course={course}
-                      key={idx}
+                      key={course._id}
                       deleteCourse={this.props.deleteCourse}
                       updateCourse={this.props.updateCourse}
                   />)
