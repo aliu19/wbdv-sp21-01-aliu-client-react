@@ -9,8 +9,37 @@ const initalState = {
 const moduleReducer = (state = initalState, action) => {
   switch (action.type) {
     case "CREATE_MODULE":
+      const newState = {
+        modules: [
+            ...state.modules,
+            {
+              _id: (new Date()).getTime(),
+              title: "New Module"
+            }
+        ]
+      }
+      return newState
     case "DELETE_MODULE":
+      const newState1 = {
+        modules: state.modules.filter(module => {
+          if(module._id === action.moduleToDelete._id) {
+            return false
+          } else {
+            return true
+          }
+        })
+      }
+      return newState1
     case "UPDATE_MODULE":
+      return {
+        modules: state.modules.map(m => {
+          if(m._id === action.module._id) {
+            return action.module
+          } else {
+            return m
+          }
+        })
+      }
     default:
       return state
   }

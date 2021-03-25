@@ -7,6 +7,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 function App() {
   return (
     <BrowserRouter>
+      {/*<Route path="/" component={Home}/>*/}
       <Route path="/courses" component={CourseManager}/>
       <Route path="/editor" render={(props) => <CourseEditor {...props}/>}/>
       {/*passes down children of props - spreader operator*/}

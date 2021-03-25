@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import EditableItem from "../editable-item";
 
 const TopicPills = ({topics=[]}) =>
     <div>
@@ -8,7 +9,7 @@ const TopicPills = ({topics=[]}) =>
           topics.map(topics =>
             <li className="nav-item">
               <a className="nav-link">
-                {topics.title}
+                <EditableItem item={topics}/>
               </a>
             </li>
           )
