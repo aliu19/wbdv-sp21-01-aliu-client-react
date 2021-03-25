@@ -1,135 +1,83 @@
 import React from 'react'
+import {combineReducers, createStore} from "redux";
+import moduleReducer from "../../reducers/module-reducer";
+import lessonReducer from "../../reducers/lesson-reducer";
+import topicReducer from "../../reducers/topic-reducer";
+import {Provider} from "react-redux";
+import ModuleList from "./module-list";
+import LessonTabs from "./lesson-tabs";
+import TopicPills from "./topic-pills";
+
+const reducer = combineReducers({
+  moduleReducer: moduleReducer,
+  lessonReducer: lessonReducer,
+  topicReducer: topicReducer
+})
+
+const store = createStore(reducer)
 
 const CourseEditor = ({history}) => {
   return (
-      <div className="container-fluid pull-left">
+      <Provider store={store}>
+        <div className="container-fluid pull-left">
 
-        <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-secondary">
-          <button className="btn btn-primary btn-lg">
+          <button className="btn btn-primary">
             <i onClick={() => history.goBack()} className="fas fa-arrow-left"></i>
           </button>
-          <span className="col-2 wbdv-nav-title">
-            CS5610 - WebDev
-          </span>
 
-          <button className="navbar-toggler" type="button"
-                  data-toggle="collapse" data-target="#navbarNavDropdown">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+          {/*  <span className="col-4">*/}
+          {/*    <h3>*/}
+          {/*      CS5610 - WebDev*/}
+          {/*    </h3>*/}
+          {/*  </span>*/}
 
-          <div className="col-10 collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav wbdv-justify-navbar">
-              <li className="nav-item">
-                <a className="nav-link disabled wbdv-navbar-font" href="#">
-                  Build
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link active wbdv-navbar-font" href="#">
-                  Pages
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled wbdv-navbar-font" href="#">
-                  Theme
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled wbdv-navbar-font" href="#">
-                  Store
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled wbdv-navbar-font" href="#">
-                  Apps
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled wbdv-navbar-font" href="#">
-                  Settings
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled wbdv-navbar-font" href="#">
-                  <i className="fa fa-plus"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+          {/*  <div className="col-1">*/}
+          {/*    <h3>*/}
+          {/*      Build*/}
+          {/*    </h3>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-1">*/}
+          {/*    <h3>*/}
+          {/*      Pages*/}
+          {/*    </h3>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-1">*/}
+          {/*    <h3>*/}
+          {/*      Theme*/}
+          {/*    </h3>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-1">*/}
+          {/*    <h3>*/}
+          {/*      Store*/}
+          {/*    </h3>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-1">*/}
+          {/*    <h3>*/}
+          {/*      Apps*/}
+          {/*    </h3>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-1">*/}
+          {/*    <h3>*/}
+          {/*      Settings*/}
+          {/*    </h3>*/}
+          {/*  </div>*/}
+          {/*  <div className="col-1">*/}
+          {/*    <i className="fa fa-plus fa-2x"></i>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
 
-        <div className="row wbdv-pad-top">
-          <div className="col-4 bg-dark">
-            <ul className="list-group">
-              <br/>
-                <li className="list-group-item wbdv-modules">
-                  Module 1 - jQuery
-                  <i className="fa-pull-right fa fa-trash"></i>
-                </li>
-                <li className="list-group-item list-group-item-action active wbdv-modules">
-                  Module 2 - React
-                  <i className="fa-pull-right fa fa-trash"></i>
-                </li>
-                <li className="list-group-item wbdv-modules">
-                  Module 3 - Redux
-                  <i className="fa-pull-right fa fa-trash"></i>
-                </li>
-                <li className="list-group-item wbdv-modules">
-                  Module 4 - Native
-                  <i className="fa-pull-right fa fa-trash"></i>
-                </li>
-                <li className="list-group-item wbdv-modules">
-                  Module 5 - Angular
-                  <i className="fa-pull-right fa fa-trash"></i>
-                </li>
-                <li className="list-group-item wbdv-modules">
-                  Module 6 - Node
-                  <i className="fa-pull-right fa fa-trash"></i>
-                </li>
-                <li className="list-group-item wbdv-modules">
-                  Module 7 - Mongo
-                  <i className="fa-pull-right fa fa-trash"></i>
-                </li>
-                <li className="list-group-item bg-dark list-group-item-action wbdv-modules">
-                  <i className="fa-pull-right fa fa-plus"></i>
-                </li>
-            </ul>
-          </div>
-
-          <div className="col-8">
-            <ul className="nav nav-pills">
-              <li className="nav-item wbdv-topics">
-                <a className="nav-link disabled" href="#">
-                  Topic 1
-                </a>
-              </li>
-              <li className="nav-item wbdv-topics">
-                <a className="nav-link active" href="#">
-                  Topic 2
-                </a>
-              </li>
-              <li className="nav-item wbdv-topics">
-                <a className="nav-link disabled" href="#">
-                  Topic 3
-                </a>
-              </li>
-              <li className="nav-item wbdv-topics">
-                <a className="nav-link disabled" href="#">
-                  Topic 4
-                </a>
-              </li>
-              <li className="nav-item wbdv-topics">
-                <a className="nav-link disabled" href="#">
-                  <i className="fa fa-plus"></i>
-                </a>
-              </li>
-            </ul>
+          <div className="row">
+            <div className="col-3">
+              <ModuleList/>
+            </div>
+            <div className="col-9">
+              <LessonTabs/>
+              <TopicPills/>
+            </div>
           </div>
 
         </div>
-
-
-      </div>
-)
+      </Provider>
+  )
 }
 export default CourseEditor
