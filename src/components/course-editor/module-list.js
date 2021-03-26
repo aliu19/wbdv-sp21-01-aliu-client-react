@@ -6,8 +6,8 @@ const ModuleList = (
     {
       myModules=[],
       createModule=() => alert("Create Module"),
-      deleteModule = (item) => alert("Delete " + item._id),
-      updateModule = (item) => alert("Update")
+      deleteModule = (item) => alert("Delete Module " + item._id),
+      updateModule = (item) => alert("Update Module")
     }) =>
     <div>
       <ul className='list-group'>
