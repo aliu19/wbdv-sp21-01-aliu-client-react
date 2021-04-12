@@ -30,7 +30,7 @@ const topicReducer = (state=initialState, action) => {
         })
       }
       return newState1
-    case "UPDATE_MODULE":
+    case "UPDATE_TOPIC":
       return {
         topics: state.topics.map(t => {
           if(t._id === action.topic._id) {

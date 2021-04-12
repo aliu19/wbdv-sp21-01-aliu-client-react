@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <Route path="/" component={Home} exact={true}/>
       <Route path="/courses" component={CourseManager}/>
-      <Route path="/editor" render={(props) => <CourseEditor {...props}/>}/>
+      {/*<Route path="/editor" render={(props) => <CourseEditor {...props}/>}/>*/}
       {/*passes down children of props - spreader operator*/}
     </BrowserRouter>
   );

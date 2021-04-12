@@ -1,5 +1,6 @@
 import React from 'react'
 import {combineReducers, createStore} from "redux";
+import {useParams} from 'react-router-dom';
 import moduleReducer from "../../reducers/module-reducer";
 import lessonReducer from "../../reducers/lesson-reducer";
 import topicReducer from "../../reducers/topic-reducer";
@@ -17,13 +18,18 @@ const reducer = combineReducers({
 const store = createStore(reducer)
 
 const CourseEditor = ({history}) => {
+  const {courseId, moduleId} = useParams();
+
   return (
       <Provider store={store}>
-        <div className="container-fluid pull-left">
+        <div className="container-fluid pull-left wbdv-pad-top">
 
-          <button className="btn btn-primary">
-            <i onClick={() => history.goBack()} className="fas fa-arrow-left"></i>
-          </button>
+          <h2>
+            <button className="btn btn-primary">
+              <i onClick={() => history.goBack()} className="fas fa-arrow-left"></i>
+            </button>
+            Editor {courseId} {moduleId}
+          </h2>
 
           {/*  <span className="col-4">*/}
           {/*    <h3>*/}

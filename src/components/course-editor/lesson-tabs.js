@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {useParams} from 'react-router-dom'
 import EditableItem from "../editable-item";
 
 const LessonTabs = (
@@ -8,29 +9,37 @@ const LessonTabs = (
       createLesson=() => alert("Create Lesson"),
       deleteLesson = (item) => alert("Delete Lesson " + item._id),
       updateLesson = (item) => alert("Update Lesson")
-    }) =>
-    <div>
-      <ul className="nav nav-tabs">
-        {
-          lessons.map(lesson =>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  <EditableItem
-                      item={lesson}
-                      deleteItem={deleteLesson}
-                      updateItem={updateLesson}
-                  />
-                </a>
-              </li>
-          )
-        }
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            <i className="fas fa-plus" onClick={createLesson}></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+    }) => {
+
+  const {courseId, moduleId}  = useParams();
+
+  return (
+      <div>
+        <h2>Lessons {courseId} {moduleId}</h2>
+        <ul className="nav nav-tabs">
+          {
+            lessons.map(lesson =>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    <EditableItem
+                        to={`/courses/editor/${courseId}/${moduleId}/${lesson._id}`}
+                        item={lesson}
+                        deleteItem={deleteLesson}
+                        updateItem={updateLesson}
+                    />
+                  </a>
+                </li>
+            )
+          }
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              <i className="fas fa-plus" onClick={createLesson}></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+  )
+}
 
 const stpm = (state) => {
   return {

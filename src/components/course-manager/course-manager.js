@@ -4,6 +4,7 @@ import CourseGrid from "../course-grid/course-grid";
 import {Route} from "react-router-dom";
 import courseService from "../../services/course-service"; // to differentiate b/w same function names
 import "./course-manager.css"
+import CourseEditor from "../course-editor/course-editor";
 
 export default class CourseManager extends React.Component {
   state = {
@@ -85,6 +86,14 @@ export default class CourseManager extends React.Component {
                 updateCourse={this.updateCourse}
                 courses={this.state.courses}
             />
+          </Route>
+          <Route path={[
+              "/courses/editor/:courseId",
+              "/courses/editor/:courseId/:moduleId",
+              "/courses/editor/:courseId/:moduleId/:lessonId",
+              "/courses/editor/:courseId/:moduleId/:lessonId/:topicId"
+            ]}
+                 render={(props) => <CourseEditor {...props}/>}>
           </Route>
 
           <button className="btn wbdv-bottom-right" id="addBtn">
