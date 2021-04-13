@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import EditableItem from "../editable-item";
@@ -20,7 +20,6 @@ const ModuleList = (
 
   return (
       <div>
-        <h2>Module {myModules.length} {courseId}</h2>
         <ul className='list-group'>
           {
             myModules.map(module =>

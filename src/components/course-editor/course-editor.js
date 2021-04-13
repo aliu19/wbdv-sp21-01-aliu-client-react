@@ -31,47 +31,6 @@ const CourseEditor = ({history}) => {
             Editor {courseId} {moduleId}
           </h2>
 
-          {/*  <span className="col-4">*/}
-          {/*    <h3>*/}
-          {/*      CS5610 - WebDev*/}
-          {/*    </h3>*/}
-          {/*  </span>*/}
-
-          {/*  <div className="col-1">*/}
-          {/*    <h3>*/}
-          {/*      Build*/}
-          {/*    </h3>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-1">*/}
-          {/*    <h3>*/}
-          {/*      Pages*/}
-          {/*    </h3>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-1">*/}
-          {/*    <h3>*/}
-          {/*      Theme*/}
-          {/*    </h3>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-1">*/}
-          {/*    <h3>*/}
-          {/*      Store*/}
-          {/*    </h3>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-1">*/}
-          {/*    <h3>*/}
-          {/*      Apps*/}
-          {/*    </h3>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-1">*/}
-          {/*    <h3>*/}
-          {/*      Settings*/}
-          {/*    </h3>*/}
-          {/*  </div>*/}
-          {/*  <div className="col-1">*/}
-          {/*    <i className="fa fa-plus fa-2x"></i>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
           <div className="row">
             <div className="col-3">
               <ModuleList/>
