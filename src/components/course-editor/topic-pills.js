@@ -1,36 +1,47 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import {useParams} from 'react-router-dom'
 import EditableItem from "../editable-item";
+import topicService from "../../services/topic-service"
 
 const TopicPills = (
     {
       topics=[],
       createTopic=() => alert("Create Topic"),
       deleteTopic = (item) => alert("Delete Topic " + item._id),
-      updateTopic = (item) => alert("Update Topic")
-    }) =>
-    <div>
-      <ul className="nav nav-pills">
-        {
-          topics.map(topics =>
+      updateTopic = (item) => alert("Update Topic"),
+      findTopicsForLesson = (lessonId) => console.log(lessonId)
+    }) => {
+
+  const {courseId, moduleId, lessonId} = useParams();
+  useEffect(() => {
+    findTopicsForLesson(lessonId)
+  }, [])
+
+  return (<div>
+    <ul className="nav nav-pills">
+      {
+        topics.map(topic =>
             <li className="nav-item">
               <a className="nav-link">
                 <EditableItem
-                    item={topics}
+                    to={`/courses/editor/${courseId}/${moduleId}/${lessonId}/${topic._id}`}
+                    item={topic}
                     deleteItem={deleteTopic}
                     updateItem={updateTopic}
                 />
               </a>
             </li>
-          )
-        }
-        <li className="nav-item">
-          <a className="nav-link" href="#">
-            <i className="fas fa-plus" onClick={createTopic}></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+        )
+      }
+      <li className="nav-item">
+        <a className="nav-link" href="#">
+          <i className="fas fa-plus" onClick={() => createTopic(lessonId)}></i>
+        </a>
+      </li>
+    </ul>
+  </div>)
+}
 
 const stpm = (state) => {
   return {
@@ -40,9 +51,34 @@ const stpm = (state) => {
 
 const dtpm = (dispatch) => {
   return {
-    createTopic: () => dispatch({type: "CREATE_TOPIC"}),
-    deleteTopic: (item) => dispatch({type: "DELETE_TOPIC", topicToDelete: item}),
-    updateTopic: (topic) => dispatch({type: "UPDATE_TOPIC", topic})
+    createTopic: (lessonId) => {
+      topicService.createTopic(lessonId, {title: "New Topic"})
+        .then(theActualTopic => dispatch({
+          type: "CREATE_TOPIC",
+          topic: theActualTopic
+        }))
+    },
+    deleteTopic: (item) => {
+      topicService.deleteTopic(item._id)
+        .then(status => dispatch({
+          type: "DELETE_TOPIC",
+          topicToDelete: item
+        }))
+    },
+    updateTopic: (topic) => {
+      topicService.updateTopic(topic._id, topic)
+        .then(status => dispatch({
+          type: "UPDATE_TOPIC",
+          topic
+        }))
+    },
+    findTopicsForLesson: (lessonId) => {
+      topicService.findTopicsForLesson(lessonId)
+        .then(theTopics => dispatch({
+          type: "FIND_TOPICS_FOR_LESSON",
+          topics: theTopics
+      }))
+    }
   }
 }
 

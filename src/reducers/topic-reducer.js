@@ -1,9 +1,5 @@
 const initialState = {
-  topics: [
-    {_id: "1", title: "Topic 1"},
-    {_id: "2", title: "Topic 2"},
-    {_id: "3", title: "Topic 3"}
-  ]
+  topics: []
 }
 
 const topicReducer = (state=initialState, action) => {
@@ -12,10 +8,7 @@ const topicReducer = (state=initialState, action) => {
       const newState = {
         topics: [
           ...state.topics,
-          {
-            _id: (new Date()).getTime(),
-            title: "New Topic"
-          }
+          action.topic
         ]
       }
       return newState
@@ -39,6 +32,11 @@ const topicReducer = (state=initialState, action) => {
             return t
           }
         })
+      }
+    case "FIND_TOPICS_FOR_LESSON":
+      return {
+        ...state,
+        topics: action.topics
       }
     default:
       return state
