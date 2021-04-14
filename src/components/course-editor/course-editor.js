@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {combineReducers, createStore} from "redux";
 import {useParams, Link} from 'react-router-dom';
 import moduleReducer from "../../reducers/module-reducer";
@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import TopicPills from "./topic-pills";
+import courseService from "../../services/course-service"
 
 const reducer = combineReducers({
   moduleReducer: moduleReducer,
@@ -30,7 +31,7 @@ const CourseEditor = ({history}) => {
                 <i className="fas fa-arrow-left"></i>
               </Link>
             </button>
-            Editor {courseId} {moduleId}
+            EDITOR TITLE
           </h2>
 
           <div className="row">
