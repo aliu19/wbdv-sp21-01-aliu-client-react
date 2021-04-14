@@ -13,7 +13,7 @@ const TopicPills = (
       findTopicsForLesson = (lessonId) => console.log(lessonId)
     }) => {
 
-  const {courseId, moduleId, lessonId} = useParams();
+  const {courseId, moduleId, lessonId, topicId} = useParams();
   useEffect(() => {
     if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
       findTopicsForLesson(lessonId)
@@ -25,7 +25,7 @@ const TopicPills = (
       {
         topics.map(topic =>
             <li className="nav-item">
-              <a className="nav-link">
+              <a className={`nav-link ${topic._id === topicId ? 'active' : ''}`}>
                 <EditableItem
                     to={`/courses/editor/${courseId}/${moduleId}/${lessonId}/${topic._id}`}
                     item={topic}
