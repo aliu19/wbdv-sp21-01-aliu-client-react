@@ -4,7 +4,6 @@ import CourseGrid from "../course-grid/course-grid";
 import {Route} from "react-router-dom";
 import courseService from "../../services/course-service"; // to differentiate b/w same function names
 import "./course-manager.css"
-import CourseEditor from "../course-editor/course-editor";
 
 export default class CourseManager extends React.Component {
   state = {
@@ -73,28 +72,19 @@ export default class CourseManager extends React.Component {
             </div>
           </div>
 
-          <Route path="/courses/table">
+          <Route path="/courses/table" exact={true}>
             <CourseTable
                 deleteCourse={this.deleteCourse}
                 updateCourse={this.updateCourse}
                 courses={this.state.courses}
             />
           </Route>
-          <Route path="/courses/grid">
+          <Route path="/courses/grid" exact={true}>
             <CourseGrid
                 deleteCourse={this.deleteCourse}
                 updateCourse={this.updateCourse}
                 courses={this.state.courses}
             />
-          </Route>
-          <Route path={[
-              "/courses/editor/:courseId",
-              "/courses/editor/:courseId/:moduleId",
-              "/courses/editor/:courseId/:moduleId/:lessonId",
-              "/courses/editor/:courseId/:moduleId/:lessonId/:topicId"
-            ]}
-                 exact={true}
-                 render={(props) => <CourseEditor {...props}/>}>
           </Route>
 
           <button className="btn wbdv-bottom-right" id="addBtn">
