@@ -29,6 +29,7 @@ const ModuleList = (
                       item={module}
                       deleteItem={deleteModule}
                       updateItem={updateModule}
+                      key={module._id}
                   />
                 </li>
             )

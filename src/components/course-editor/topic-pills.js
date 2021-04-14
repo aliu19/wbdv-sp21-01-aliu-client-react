@@ -15,8 +15,10 @@ const TopicPills = (
 
   const {courseId, moduleId, lessonId} = useParams();
   useEffect(() => {
-    findTopicsForLesson(lessonId)
-  }, [])
+    if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
+      findTopicsForLesson(lessonId)
+    }
+  }, [moduleId, lessonId])
 
   return (<div>
     <ul className="nav nav-pills">
@@ -29,6 +31,7 @@ const TopicPills = (
                     item={topic}
                     deleteItem={deleteTopic}
                     updateItem={updateTopic}
+                    key={topic._id}
                 />
               </a>
             </li>

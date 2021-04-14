@@ -15,8 +15,10 @@ const LessonTabs = (
 
   const {courseId, moduleId}  = useParams();
   useEffect(() => {
-    findLessonsForModule(moduleId)
-  }, [])
+    if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
+      findLessonsForModule(moduleId)
+    }
+  }, [moduleId])
 
   return (
       <div>
@@ -30,6 +32,7 @@ const LessonTabs = (
                         item={lesson}
                         deleteItem={deleteLesson}
                         updateItem={updateLesson}
+                        key={lesson._id}
                     />
                   </a>
                 </li>
@@ -76,9 +79,9 @@ const dtpm = (dispatch) => {
     },
     findLessonsForModule: (moduleId) => {
       lessonService.findLessonsForModule(moduleId)
-        .then(theLessons => dispatch({
+        .then(lessons => dispatch({
           type: "FIND_LESSONS_FOR_MODULE",
-          lessons: theLessons
+          lessons
         }))
     }
   }

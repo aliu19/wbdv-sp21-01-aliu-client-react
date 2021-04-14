@@ -93,6 +93,7 @@ export default class CourseManager extends React.Component {
               "/courses/editor/:courseId/:moduleId/:lessonId",
               "/courses/editor/:courseId/:moduleId/:lessonId/:topicId"
             ]}
+                 exact={true}
                  render={(props) => <CourseEditor {...props}/>}>
           </Route>
 
