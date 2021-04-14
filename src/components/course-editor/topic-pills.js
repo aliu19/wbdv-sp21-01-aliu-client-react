@@ -10,15 +10,20 @@ const TopicPills = (
       createTopic=() => alert("Create Topic"),
       deleteTopic = (item) => alert("Delete Topic " + item._id),
       updateTopic = (item) => alert("Update Topic"),
-      findTopicsForLesson = (lessonId) => console.log(lessonId)
+      findTopicsForLesson = (lessonId) => console.log(lessonId),
+      clearTopics = () => console.log("Clear Topics")
     }) => {
 
   const {layout, courseId, moduleId, lessonId, topicId} = useParams();
+
   useEffect(() => {
-    if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
+    if((moduleId !== "undefined" && typeof moduleId !== "undefined") &&
+        (lessonId !== "undefined" && typeof lessonId !== "undefined")) {
       findTopicsForLesson(lessonId)
+    } else {
+      clearTopics()
     }
-  }, [moduleId, lessonId])
+  }, [courseId, moduleId, lessonId])
 
   return (<div>
     <ul className="nav nav-pills">
@@ -81,6 +86,12 @@ const dtpm = (dispatch) => {
           type: "FIND_TOPICS_FOR_LESSON",
           topics: theTopics
       }))
+    },
+    clearTopics: () => {
+      dispatch({
+        type: "CLEAR_TOPICS",
+        topics: []
+      })
     }
   }
 }
