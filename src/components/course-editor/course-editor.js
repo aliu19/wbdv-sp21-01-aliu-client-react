@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {combineReducers, createStore} from "redux";
 import {useParams, Link} from 'react-router-dom';
 import moduleReducer from "../../reducers/module-reducer";
 import lessonReducer from "../../reducers/lesson-reducer";
 import topicReducer from "../../reducers/topic-reducer";
-import {Provider} from "react-redux";
+import {Provider, connect} from "react-redux";
 import ModuleList from "./module-list";
 import LessonTabs from "./lesson-tabs";
 import TopicPills from "./topic-pills";
@@ -13,13 +13,20 @@ import courseService from "../../services/course-service"
 const reducer = combineReducers({
   moduleReducer: moduleReducer,
   lessonReducer: lessonReducer,
-  topicReducer: topicReducer
+  topicReducer: topicReducer,
 })
 
 const store = createStore(reducer)
 
 const CourseEditor = ({history}) => {
+
   const {layout, courseId, moduleId} = useParams();
+  const [courseTitle, setNewTitle] = useState("")
+
+  useEffect(() => {
+    courseService.findCourseById(courseId)
+      .then(course => setNewTitle(course.title))
+  }, [courseId])
 
   return (
       <Provider store={store}>
@@ -31,7 +38,7 @@ const CourseEditor = ({history}) => {
                 <i className="fas fa-arrow-left"></i>
               </Link>
             </button>
-            EDITOR TITLE
+            {courseTitle}
           </h2>
 
           <div className="row">
