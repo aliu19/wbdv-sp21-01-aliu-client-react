@@ -11,9 +11,6 @@ const Home = () =>
         <Link to="/courses/grid" className="list-group-item">
           Courses Grid
         </Link>
-        <Link to="/editor" className="list-group-item">
-          Courses Editor
-        </Link>
       </div>
     </div>
 
