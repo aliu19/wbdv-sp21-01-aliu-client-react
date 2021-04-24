@@ -1,12 +1,28 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const HeadingWidget = ({widget, editing}) => {
+const HeadingWidget = ({widget, updateWidget, deleteWidget}) => {
+
+  const [editingWidget, setEditingWidget] = useState({})
+
   return(
       <>
         {
-          editing &&
+          editingWidget.id === widget.id &&
           <>
-            <select value={widget.type} className="form-control">
+            <i onClick={() => {
+              updateWidget(widget.id, editingWidget)
+              setEditingWidget({})
+            }}
+               className="fas fa-check fa-pull-right"></i>
+            <i onClick={() => deleteWidget(widget)} className="fas fa-times fa-pull-right"></i>
+
+            <select onChange={(event) =>
+                setEditingWidget({
+                  ...editingWidget,
+                  type: event.target.value
+                })}
+                    value={editingWidget.type}
+                    className="form-control">
               <option value={"HEADING"}>Heading</option>
               <option value={"PARAGRAPH"}>Paragraph</option>
               <option value={"VIDEO"}>Video</option>
@@ -16,9 +32,23 @@ const HeadingWidget = ({widget, editing}) => {
               <option value={"HTML"}>HTML</option>
             </select>
             <br/>
-            <input value={widget.text} className="form-control"/>
+            <input
+                className="form-control"
+                onChange={(event) =>
+                    setEditingWidget({
+                      ...editingWidget,
+                      text: event.target.value
+                    })}
+                value={editingWidget.text}
+            />
             <br/>
-            <select value={widget.size} className="form-control">
+            <select onChange={(event) =>
+                setEditingWidget({
+                  ...editingWidget,
+                  size: parseInt(event.target.value)
+                })}
+                    value={editingWidget.size}
+                    className="form-control">
               <option value={1}>Heading 1</option>
               <option value={2}>Heading 2</option>
               <option value={3}>Heading 3</option>
@@ -29,8 +59,9 @@ const HeadingWidget = ({widget, editing}) => {
           </>
         }
         {
-          !editing &&
+          editingWidget.id !== widget.id &&
           <>
+            <i onClick={() => setEditingWidget(widget)} className="fas fa-cog fa-pull-right"></i>
             {widget.size === 1 && <h1>{widget.text}</h1>}
             {widget.size === 2 && <h2>{widget.text}</h2>}
             {widget.size === 3 && <h3>{widget.text}</h3>}

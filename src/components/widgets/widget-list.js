@@ -16,7 +16,6 @@
  ) => {
 
   const {layout, courseId, moduleId, lessonId, topicId, widgetId} = useParams();
-  const [editingWidget, setEditingWidget] = useState({})
 
   useEffect(() => {
     findWidgetsForTopic(topicId)
@@ -30,32 +29,21 @@
             widgets.map(widget =>
                 <li className="list-group-item" key={widget.id}>
                   {
-                    editingWidget.id === widget.id &&
-                    <>
-                      <i onClick={() => {
-                        updateWidget(widget.id, editingWidget)
-                        setEditingWidget({})
-                      }}
-                         className="fas fa-check fa-pull-right"></i>
-                      <i onClick={() => deleteWidget(widget)} className="fas fa-times fa-pull-right"></i>
-                    </>
-                  }
-                  {
-                    editingWidget.id !== widget.id &&
-                    <i onClick={() => setEditingWidget(widget)} className="fas fa-cog fa-pull-right"></i>
-                  }
-                  {
                     widget.type === "HEADING" &&
                     <HeadingWidget
-                        editing={editingWidget.id === widget.id}
                         widget={widget}
+                        updateWidget={updateWidget}
+                        deleteWidget={deleteWidget}
+                        key={widget.id}
                     />
                   }
                   {
                     widget.type === "PARAGRAPH" &&
                     <ParagraphWidget
-                        editing={editingWidget.id === widget.id}
                         widget={widget}
+                        updateWidget={updateWidget}
+                        deleteWidget={deleteWidget}
+                        key={widget.id}
                     />
                   }
                 </li>

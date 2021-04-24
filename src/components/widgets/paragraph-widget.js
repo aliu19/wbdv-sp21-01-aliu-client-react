@@ -1,12 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const ParagraphWidget = ({widget, editing}) => {
+const ParagraphWidget = ({widget, updateWidget, deleteWidget}) => {
+  const [editingWidget, setEditingWidget] = useState({})
+
   return(
       <>
         {
-          editing &&
+          editingWidget.id === widget.id &&
           <>
-            <select value={widget.type} className="form-control">
+            <i onClick={() => {
+              updateWidget(widget.id, editingWidget)
+              setEditingWidget({})
+            }}
+               className="fas fa-check fa-pull-right"></i>
+            <i onClick={() => deleteWidget(widget)} className="fas fa-times fa-pull-right"></i>
+
+            <select onChange={(event) =>
+                setEditingWidget({
+                  ...editingWidget,
+                  type: event.target.value
+                })}
+                    value={editingWidget.type}
+                    className="form-control">
               <option value={"HEADING"}>Heading</option>
               <option value={"PARAGRAPH"}>Paragraph</option>
               <option value={"VIDEO"}>Video</option>
@@ -16,14 +31,23 @@ const ParagraphWidget = ({widget, editing}) => {
               <option value={"HTML"}>HTML</option>
             </select>
             <br/>
-            <textarea className="form-control" value={widget.text}></textarea>
+            <textarea className="form-control"
+                      onChange={(event) =>
+                          setEditingWidget({
+                            ...editingWidget,
+                            text: event.target.value
+                          })}
+                      value={editingWidget.text}></textarea>
           </>
         }
         {
-          !editing &&
-          <p>
-            {widget.text}
-          </p>
+          editingWidget.id !== widget.id &&
+          <>
+            <i onClick={() => setEditingWidget(widget)} className="fas fa-cog fa-pull-right"></i>
+            <p>
+              {widget.text}
+            </p>
+          </>
         }
       </>
   )
