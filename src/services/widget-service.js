@@ -1,5 +1,5 @@
-const TOPICS_URL = "http://localhost:8080/api/topics"
-const WIDGETS_URL = "http://localhost:8080/api/widgets"
+const TOPICS_URL = "https://still-garden-14584.herokuapp.com/api/topics"
+const WIDGETS_URL = "https://still-garden-14584.herokuapp.com/api/widgets"
 
 export const createWidget = (tid, widget) =>
     fetch(`${TOPICS_URL}/${tid}/widgets`, {
@@ -21,8 +21,19 @@ export const deleteWidget = (wid) =>
     })
     .then(response => response.json())
 
+export const updateWidget = (wid, widget) =>
+    fetch(`${WIDGETS_URL}/${wid}`, {
+      method: "PUT",
+      body: JSON.stringify(widget),
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+
 export default {
   createWidget,
   findWidgetsForTopic,
-  deleteWidget
+  deleteWidget,
+  updateWidget
 }

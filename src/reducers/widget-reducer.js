@@ -23,6 +23,16 @@ const widgetReducer = (state = initialState, action) => {
         })
       }
       return newState1
+    case "UPDATE_WIDGET":
+      return {
+        widgets: state.widgets.map(w => {
+          if(w.id === action.widget.id) {
+            return action.widget
+          } else {
+            return w
+          }
+        })
+      }
     case "FIND_ALL_WIDGETS_FOR_TOPIC":
       return {
         ...state,

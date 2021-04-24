@@ -11,7 +11,7 @@
        findWidgetsForTopic = (topicId) => console.log(topicId),
        createWidget = (topicId) => console.log("Create Widget " + topicId),
        deleteWidget = (widget) => console.log("Delete Widget " + widget.id),
-       updateWidget = (widget) => console.log("Update Widget " + widget.id)
+       updateWidget = (wid, widget) => console.log("Update Widget " + wid)
      }
  ) => {
 
@@ -25,7 +25,6 @@
   return(
       <div>
         <i className="fas fa-plus fa-2x float-right" onClick={() => createWidget(topicId)}></i>
-        <h2>Widget List {widgets.length} {editingWidget.id}</h2>
         <ul className="list-group">
           {
             widgets.map(widget =>
@@ -34,8 +33,8 @@
                     editingWidget.id === widget.id &&
                     <>
                       <i onClick={() => {
+                        updateWidget(widget.id, editingWidget)
                         setEditingWidget({})
-                        updateWidget(widget)
                       }}
                          className="fas fa-check fa-pull-right"></i>
                       <i onClick={() => deleteWidget(widget)} className="fas fa-times fa-pull-right"></i>
@@ -46,10 +45,18 @@
                     <i onClick={() => setEditingWidget(widget)} className="fas fa-cog fa-pull-right"></i>
                   }
                   {
-                    widget.type === "HEADING" && <HeadingWidget widget={widget}/>
+                    widget.type === "HEADING" &&
+                    <HeadingWidget
+                        editing={editingWidget.id === widget.id}
+                        widget={widget}
+                    />
                   }
                   {
-                    widget.type === "PARAGRAPH" && <ParagraphWidget widget={widget}/>
+                    widget.type === "PARAGRAPH" &&
+                    <ParagraphWidget
+                        editing={editingWidget.id === widget.id}
+                        widget={widget}
+                    />
                   }
                 </li>
             )
@@ -79,6 +86,13 @@
         .then(theWidgets => dispatch({
           type: "FIND_ALL_WIDGETS_FOR_TOPIC",
           widgets: theWidgets
+        }))
+    },
+    updateWidget: (wid, widget) => {
+      widgetService.updateWidget(wid, widget)
+        .then(status => dispatch({
+          type: "UPDATE_WIDGET",
+          widget
         }))
     },
     deleteWidget: (widget) => {
