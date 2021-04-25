@@ -4,6 +4,8 @@
  import widgetService from "../../services/widget-service"
  import HeadingWidget from "./heading-widget";
  import ParagraphWidget from "./paragraph-widget";
+ import ListWidget from "./list-widget";
+ import ImageWidget from "./image-widget";
 
  const WidgetList = (
      {
@@ -16,6 +18,7 @@
  ) => {
 
   const {layout, courseId, moduleId, lessonId, topicId, widgetId} = useParams();
+  const [editingWidget, setEditingWidget] = useState({})
 
   useEffect(() => {
     findWidgetsForTopic(topicId)
@@ -29,9 +32,27 @@
             widgets.map(widget =>
                 <li className="list-group-item" key={widget.id}>
                   {
+                    editingWidget.id === widget.id &&
+                    <>
+                      <i onClick={() => {
+                        updateWidget(widget.id, editingWidget)
+                        setEditingWidget({})
+                      }}
+                         className="fas fa-check fa-pull-right"></i>
+                      <i onClick={() => deleteWidget(widget)} className="fas fa-times fa-pull-right"></i>
+                    </>
+                  }
+                  {
+                    editingWidget.id !== widget.id &&
+                    <i onClick={() => setEditingWidget(widget)} className="fas fa-cog fa-pull-right"></i>
+                  }
+                  {
                     widget.type === "HEADING" &&
                     <HeadingWidget
                         widget={widget}
+                        editing={editingWidget.id === widget.id}
+                        editingWidget={editingWidget}
+                        setEditingWidget={setEditingWidget}
                         updateWidget={updateWidget}
                         deleteWidget={deleteWidget}
                         key={widget.id}
@@ -41,6 +62,33 @@
                     widget.type === "PARAGRAPH" &&
                     <ParagraphWidget
                         widget={widget}
+                        editing={editingWidget.id === widget.id}
+                        editingWidget={editingWidget}
+                        setEditingWidget={setEditingWidget}
+                        updateWidget={updateWidget}
+                        deleteWidget={deleteWidget}
+                        key={widget.id}
+                    />
+                  }
+                  {
+                    widget.type === "LIST" &&
+                    <ListWidget
+                        widget={widget}
+                        editing={editingWidget.id === widget.id}
+                        editingWidget={editingWidget}
+                        setEditingWidget={setEditingWidget}
+                        updateWidget={updateWidget}
+                        deleteWidget={deleteWidget}
+                        key={widget.id}
+                    />
+                  }
+                  {
+                    widget.type === "IMAGE" &&
+                    <ImageWidget
+                        widget={widget}
+                        editing={editingWidget.id === widget.id}
+                        editingWidget={editingWidget}
+                        setEditingWidget={setEditingWidget}
                         updateWidget={updateWidget}
                         deleteWidget={deleteWidget}
                         key={widget.id}
@@ -63,7 +111,7 @@
  const dtpm = (dispatch) => {
   return {
     createWidget: (topicId) => {
-      widgetService.createWidget(topicId, {type: "HEADING", size: 1, text:"New Widget"})
+      widgetService.createWidget(topicId, {type: "HEADING", size: 1, text:"New Widget", topicId})
         .then(theActualWidget => dispatch({
           type: "CREATE_WIDGET",
           widget: theActualWidget

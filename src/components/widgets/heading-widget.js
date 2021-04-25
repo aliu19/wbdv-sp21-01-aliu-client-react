@@ -1,21 +1,12 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-const HeadingWidget = ({widget, updateWidget, deleteWidget}) => {
-
-  const [editingWidget, setEditingWidget] = useState({})
+const HeadingWidget = ({widget, editing, editingWidget, setEditingWidget, updateWidget, deleteWidget}) => {
 
   return(
       <>
         {
-          editingWidget.id === widget.id &&
+          editing &&
           <>
-            <i onClick={() => {
-              updateWidget(widget.id, editingWidget)
-              setEditingWidget({})
-            }}
-               className="fas fa-check fa-pull-right"></i>
-            <i onClick={() => deleteWidget(widget)} className="fas fa-times fa-pull-right"></i>
-
             <select onChange={(event) =>
                 setEditingWidget({
                   ...editingWidget,
@@ -59,9 +50,8 @@ const HeadingWidget = ({widget, updateWidget, deleteWidget}) => {
           </>
         }
         {
-          editingWidget.id !== widget.id &&
+          !editing &&
           <>
-            <i onClick={() => setEditingWidget(widget)} className="fas fa-cog fa-pull-right"></i>
             {widget.size === 1 && <h1>{widget.text}</h1>}
             {widget.size === 2 && <h2>{widget.text}</h2>}
             {widget.size === 3 && <h3>{widget.text}</h3>}
