@@ -10,6 +10,7 @@ import {combineReducers, createStore} from "redux";
 import quizReducer from "./reducers/quiz-reducer";
 import questionReducer from "./reducers/question-reducer";
 import {Provider} from "react-redux";
+import QuizAttempts from "./components/quizzes/quiz-attempts";
 
 const reducer = combineReducers({
   quizReducer: quizReducer,
@@ -40,6 +41,9 @@ function App() {
         </Route>
         <Route path="/courses/:courseId/quizzes/:quizId" exact={true}>
           <Quiz/>
+        </Route>
+        <Route path="/courses/:courseId/quizzes/:quizId/attempts" exact={true}>
+          <QuizAttempts/>
         </Route>
       </Provider>
 

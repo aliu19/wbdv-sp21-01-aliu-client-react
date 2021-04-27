@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom'
 import quizService from "../../services/quizzes-service"
 import {connect} from "react-redux";
@@ -30,10 +30,10 @@ const Quizzes = (
                           key={quiz._id}>
                       {quiz.title}
                     </Link>
-                    <Link to={`/courses/${courseId}/quizzes/${quiz._id}`}
+                    <Link to={`/courses/${courseId}/quizzes/${quiz._id}/attempts`}
                           key={quiz._id}
                           className="btn btn-primary float-right">
-                      Start
+                      Attempts
                     </Link>
                   </div>
               )
