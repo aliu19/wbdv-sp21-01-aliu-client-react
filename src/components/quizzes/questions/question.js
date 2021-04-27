@@ -2,10 +2,9 @@ import React, {useState} from 'react'
 import TrueFalseQuestion from "./true-false-question";
 import MultipleChoiceQuestion from "./multiple-choice-question";
 
-const Question = ({question}) => {
+const Question = ({question, graded}) => {
 
   const [yourAnswer, setYourAnswer] = useState("")
-  const [graded, setGraded] = useState(false)
 
   return (
     <div>
@@ -18,10 +17,6 @@ const Question = ({question}) => {
         <MultipleChoiceQuestion question={question} yourAnswer={yourAnswer} setYourAnswer={setYourAnswer} graded={graded}/>
       }
       Your Answer: {yourAnswer}
-      <br/>
-      <button className="btn btn-success" onClick={() => {setGraded(true)}}>
-        Grade
-      </button>
     </div>
   )
 }

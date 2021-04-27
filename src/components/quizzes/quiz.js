@@ -9,6 +9,7 @@ const Quiz = () => {
   const {quizId} = useParams()
   const [questions, setQuestions] = useState([])
   const [quizTitle, setQuizTitle] = useState("")
+  const [graded, setGraded] = useState(false)
 
   useEffect(() => {
     questionService.findQuestionsForQuiz(quizId)
@@ -29,12 +30,18 @@ const Quiz = () => {
             questions.map((question) => {
               return(
                   <div className="list-group-item">
-                    <Question question={question} key={question._id}/>
+                    <Question question={question} key={question._id} graded={graded}/>
                   </div>
               )
             })
           }
         </div>
+        <button className="btn btn-success "
+                onClick={() => {
+                  setGraded(true)
+                  quizService.submitQuiz(quizId, questions)}}>
+          Grade
+        </button>
       </div>
   )
 }
