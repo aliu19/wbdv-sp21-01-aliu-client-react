@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MultipleChoiceQuestion = ({question, yourAnswer, setYourAnswer, graded}) => {
+const MultipleChoiceQuestion = ({question, yourAnswer, setYourAnswer, graded, attemptQuestion}) => {
   return(
       <div>
         <h3>
@@ -19,6 +19,7 @@ const MultipleChoiceQuestion = ({question, yourAnswer, setYourAnswer, graded}) =
                     <input type="radio"
                            onClick={() => {
                              setYourAnswer(choice)
+                             attemptQuestion({...question, answer: choice})
                            }}
                            name={question._id}/>
                     {choice}

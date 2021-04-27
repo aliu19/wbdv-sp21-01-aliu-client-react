@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TrueFalseQuestion = ({question, yourAnswer, setYourAnswer, graded}) => {
+const TrueFalseQuestion = ({question, yourAnswer, setYourAnswer, graded, attemptQuestion}) => {
   return(
       <div>
         <h3>
@@ -16,6 +16,7 @@ const TrueFalseQuestion = ({question, yourAnswer, setYourAnswer, graded}) => {
             <input type="radio"
                    onClick={() => {
                      setYourAnswer("true")
+                     attemptQuestion({...question, answer: "true"})
                    }}
                    name={question._id}/>
             True
@@ -29,6 +30,7 @@ const TrueFalseQuestion = ({question, yourAnswer, setYourAnswer, graded}) => {
             <input type="radio"
                    onClick={() => {
                      setYourAnswer("false")
+                     attemptQuestion({...question, answer: "false"})
                    }}
                    name={question._id}/>
             False

@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import {Link, useParams} from 'react-router-dom'
 import quizService from "../../services/quizzes-service"
+import {connect} from "react-redux";
 
 
-const Quizzes = () => {
+const Quizzes = (
+    {
+        quizzes = [],
+        findAllQuizzes = () => console.log("Find Quizzes")
+    }) => {
 
   const {courseId} = useParams()
-  const [quizzes, setQuizzes] = useState([])
 
   useEffect(() => {
-    quizService.findAllQuizzes()
-    .then((quizzes) => {
-      setQuizzes(quizzes)
-    })
+    findAllQuizzes()
   }, [])
 
   return(
@@ -42,4 +43,23 @@ const Quizzes = () => {
       </div>
   )
 }
-export default Quizzes
+
+const stpm = (state) => {
+  return {
+    quizzes : state.quizReducer.quizzes
+  }
+}
+
+const dtpm = (dispatch) => {
+  return {
+    findAllQuizzes: () => {
+      quizService.findAllQuizzes()
+      .then(theQuizzes => dispatch({
+        type: "FIND_ALL_QUIZZES",
+        quizzes: theQuizzes
+      }))
+    }
+  }
+}
+
+export default connect(stpm, dtpm) (Quizzes)
